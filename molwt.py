@@ -3,6 +3,6 @@
 from openeye.oechem import *
 from example import *
  
-mol=OEGraphMol()
-OEParseSmiles(mol, "c1ccccc1CCCBr")
+mol = OEGraphMol()
+OESmilesToMol(mol, "c1ccccc1CCCBr")
 print ExampleCalcMolWt(mol) 
