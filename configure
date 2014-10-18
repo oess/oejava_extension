@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dname=`dirname $0`
+
+cmake --no-warn-unused-cli false -G "Unix Makefiles" $dname
