@@ -24,4 +24,4 @@ in molwt.cpp. The function is accessed through the example MolWT.java.
 6. ./configure
 7. make
 8. ctest -V
-9. java -cp . MolWT.java
+9. java -cp . MolWT
