@@ -1,7 +1,10 @@
 import openeye.oechem.*;
-import example.*;
 
 public class MolWT {
+    static {
+        System.loadLibrary("example");
+    }
+
     public static void main(String argv[]) {
 
         OEGraphMol mol = new OEGraphMol();

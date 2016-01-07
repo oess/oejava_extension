@@ -60,4 +60,18 @@ swig_link_libraries(example
                     ${JAVA_LIBRARIES} 
                     ${oechem_AND_SHARED_DEP_LIBS})
 
-add_test(ExampleCalcMolWt env JAVAPATH=${OE_JAVA_DIR}:${CMAKE_BUILD_DIR} ${JAVA_EXECUTABLE} ${CMAKE_SOURCE_DIR}/molwt.py )
+add_custom_command(OUTPUT example.class
+  DEPENDS example
+  COMMAND ${Java_JAVAC_EXECUTABLE} example.java)
+
+add_custom_target(example_java ALL
+  DEPENDS example.class)
+
+add_custom_command(OUTPUT MolWT.class
+  DEPENDS example_java
+  COMMAND ${Java_JAVAC_EXECUTABLE} -cp . MolWT.java)
+
+add_custom_target(MolWT_java ALL
+  DEPENDS MolWT.class)
+
+add_test(ExampleCalcMolWt ${Java_JAVA_EXECUTABLE} -cp . MolWT)

@@ -1,5 +1,9 @@
 %module example
 
+%typemap(jstype) OEChem::OEMolBase& "openeye.oechem.OEGraphMol";
+
+%typemap(javain) OEChem::OEMolBase& "openeye.oechem.OEGraphMol.getCPtr($javainput)"
+
 %{
 #include "molwt.h"
 
