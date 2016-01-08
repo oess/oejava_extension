@@ -46,7 +46,7 @@ foreach(fullpathname ${oe_shared_libs})
       OUTPUT_STRIP_TRAILING_WHITESPACE
       OUTPUT_VARIABLE dependencies)
 
-    set ( ${libname}_AND_SHARED_DEP_LIBS ${dependencies})
+    set ( ${libname}_AND_SHARED_DEP_LIBS ${dependencies} stdc++)
     message("${libname}_AND_SHARED_DEP_LIBS = ${${libname}_AND_SHARED_DEP_LIBS}")
   endif(NOT fullpathname MATCHES "-jni.jnilib")
 endforeach(fullpathname)
