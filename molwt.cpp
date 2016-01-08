@@ -6,5 +6,7 @@
 
 float ExampleCalcMolWt(OEChem::OEMolBase &mol)
 {
-    return OEChem::OECalculateMolecularWeight(mol);
+  float mw = OEChem::OECalculateMolecularWeight(mol);
+  mol.SetFloatData("Molecular Weight", mw);
+  return mw;
 }
