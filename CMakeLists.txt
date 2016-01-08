@@ -25,6 +25,7 @@ endmacro( add_openeye_library )
 # Then find all the shared libraries
 set (CMAKE_SHARED_LIBRARY_SUFFIX "jnilib")
 set (CMAKE_CXX_FLAGS "-stdlib=libstdc++")
+set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -unexported_symbols_list ${PROJECT_SOURCE_DIR}/etc/javanew.unexport")
 
 set (OE_JAVA_LIB_DIR ${OE_JAVA_DIR}/openeye/native-libs/MacOSX-x64)
 file(GLOB oe_shared_libs "${OE_JAVA_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}*${CMAKE_SHARED_LIBRARY_SUFFIX}")
@@ -54,7 +55,8 @@ endforeach(fullpathname)
 
 # Project specific stuff
 set(EXAMPLE_SRC
-  molwt.cpp)
+  molwt.cpp
+  javanew.cpp)
 
 message("oechem_AND_SHARED_DEP_LIBS = ${oechem_AND_SHARED_DEP_LIBS}")
 
