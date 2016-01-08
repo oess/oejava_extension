@@ -24,6 +24,7 @@ endmacro( add_openeye_library )
 
 # Then find all the shared libraries
 set (CMAKE_SHARED_LIBRARY_SUFFIX "jnilib")
+set (CMAKE_CXX_FLAGS "-stdlib=libstdc++")
 
 set (OE_JAVA_LIB_DIR ${OE_JAVA_DIR}/openeye/native-libs/MacOSX-x64)
 file(GLOB oe_shared_libs "${OE_JAVA_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}*${CMAKE_SHARED_LIBRARY_SUFFIX}")
@@ -46,7 +47,7 @@ foreach(fullpathname ${oe_shared_libs})
       OUTPUT_STRIP_TRAILING_WHITESPACE
       OUTPUT_VARIABLE dependencies)
 
-    set ( ${libname}_AND_SHARED_DEP_LIBS ${dependencies} stdc++)
+    set ( ${libname}_AND_SHARED_DEP_LIBS ${dependencies})
     message("${libname}_AND_SHARED_DEP_LIBS = ${${libname}_AND_SHARED_DEP_LIBS}")
   endif(NOT fullpathname MATCHES "-jni.jnilib")
 endforeach(fullpathname)
