@@ -10,6 +10,8 @@ find_package(JNI REQUIRED)
 find_package(SWIG REQUIRED VERSION 3.0.2 HINT ${HINTPATH})
 include(${SWIG_USE_FILE})
 
+add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG)
+
 include_directories(${JAVA_INCLUDE_PATH})
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/openeye/toolkits/include)

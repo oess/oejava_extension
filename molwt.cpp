@@ -10,3 +10,8 @@ float ExampleCalcMolWt(OEChem::OEMolBase &mol)
   mol.SetFloatData("Molecular Weight", mw);
   return mw;
 }
+
+void UsingAStream(const char *data)
+{
+  OEPlatform::oeisstream is(data);
+}

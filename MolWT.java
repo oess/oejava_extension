@@ -11,5 +11,7 @@ public class MolWT {
         oechem.OESmilesToMol(mol, "c1ccccc1CCCBr");
 
         System.out.println(example.ExampleCalcMolWt(mol));
+
+        example.UsingAStream("fubar?");
     }
 }
