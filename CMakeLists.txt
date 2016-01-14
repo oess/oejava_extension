@@ -24,16 +24,22 @@ macro( add_openeye_library libname fullpath)
   endif()
 endmacro( add_openeye_library )
 
-# Then find all the shared libraries
-set (CMAKE_SHARED_LIBRARY_SUFFIX "jnilib")
-set (CMAKE_CXX_FLAGS "-stdlib=libstdc++")
-set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -unexported_symbols_list ${PROJECT_SOURCE_DIR}/etc/javanew.unexport")
+if (UNIX)
+  set (arch "Linux-x64")
+else()
+  set (arch "MacOSX-x64")
 
-set (OE_JAVA_LIB_DIR ${OE_JAVA_DIR}/openeye/native-libs/MacOSX-x64)
+  set (CMAKE_SHARED_LIBRARY_SUFFIX "jnilib")
+  set (CMAKE_CXX_FLAGS "-stdlib=libstdc++")
+  set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -unexported_symbols_list ${PROJECT_SOURCE_DIR}/etc/javanew.unexport")
+endif (UNIX)
+
+set (OE_JAVA_LIB_DIR "${OE_JAVA_DIR}/openeye/native-libs/${arch}")
 file(GLOB oe_shared_libs "${OE_JAVA_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+message("${OE_JAVA_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}*${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 foreach(fullpathname ${oe_shared_libs})
-  if (NOT fullpathname MATCHES "-jni.jnilib")
+  if (NOT fullpathname MATCHES "-jni.${CMAKE_SHARED_LIBRARY_SUFFIX}")
     # extract the shared library name including version number
     get_filename_component(sharedlibname "${fullpathname}" NAME)
     string(REGEX REPLACE "${CMAKE_SHARED_LIBRARY_SUFFIX}" "" sharedlibname "${sharedlibname}")
@@ -52,7 +58,7 @@ foreach(fullpathname ${oe_shared_libs})
 
     set ( ${libname}_AND_SHARED_DEP_LIBS ${dependencies})
     message("${libname}_AND_SHARED_DEP_LIBS = ${${libname}_AND_SHARED_DEP_LIBS}")
-  endif(NOT fullpathname MATCHES "-jni.jnilib")
+  endif(NOT fullpathname MATCHES "-jni.${CMAKE_SHARED_LIBRARY_SUFFIX}")
 endforeach(fullpathname)
 
 # Project specific stuff

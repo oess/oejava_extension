@@ -3,12 +3,7 @@ import os
 import sys
 from subprocess import Popen, PIPE
 
-def extract_darwin_deps(argv):
-    if len(argv) != 2:
-        print("Usage: %s shared_library.jnilib" % argv[0])
-        return 1
-
-    args = ["otool", "-L", argv[1]]
+def extract_deps(args):
     proc = Popen(args, stdout=PIPE)
     output = proc.communicate()[0]
 
@@ -24,16 +19,36 @@ def extract_darwin_deps(argv):
         deps.append(libname)
     print(";".join(deps))
 
+    return 0
 
 
+def extract_darwin_deps(argv):
+    if len(argv) != 2:
+        print("Usage: %s shared_library.jnilib" % argv[0])
+        return 1
+
+    args = ["otool", "-L", argv[1]]
+    return extract_deps(args)
 
 
+def extract_linux_deps(argv):
+    if len(argv) != 2:
+        print("Usage: %s shared_library.jnilib" % argv[0])
+        return 1
+
+    args = ["ldd", argv[1]]
+    return extract_deps(args)
+
+    
 def main(argv=[__name__]):
     if sys.platform.startswith("darwin"):
         return extract_darwin_deps(argv)
+    elif sys.platform.startswith("linux"):
+        return extract_linux_deps(argv)
     else:
         print("Unsupported platform: %s, edit %s to add support" % (sys.platform, argv[0]))
         return 1
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
