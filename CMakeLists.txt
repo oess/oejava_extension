@@ -59,7 +59,7 @@ foreach(fullpathname ${oe_shared_libs})
 
     set ( ${libname}_AND_SHARED_DEP_LIBS "${libname};${dependencies}")
     message("${libname}_AND_SHARED_DEP_LIBS = ${${libname}_AND_SHARED_DEP_LIBS}")
-  endif(NOT fullpathname MATCHES "-jni.${CMAKE_SHARED_LIBRARY_SUFFIX}")
+  endif()
 endforeach(fullpathname)
 
 # Project specific stuff
