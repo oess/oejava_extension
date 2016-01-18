@@ -13,6 +13,7 @@ include(${SWIG_USE_FILE})
 add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG)
 
 include_directories(${JAVA_INCLUDE_PATH})
+include_directories(${JAVA_INCLUDE_PATH2}) # needed for the 'include/linux' subdirectory
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/openeye/toolkits/include)
 
