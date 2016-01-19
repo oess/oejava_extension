@@ -15,7 +15,7 @@ file(READ ${limitedstack_h} contents)
 string(REGEX REPLACE "define OELIMITEDSTACK 0" "define OELIMITEDSTACK 1024" contents "${contents}")
 file(WRITE ${limitedstack_h} "${contents}")
 
-add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG)
+add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG -DOELIMITEDSTACK=1024)
 
 include_directories(${JAVA_INCLUDE_PATH})
 include_directories(${JAVA_INCLUDE_PATH2}) # needed for the 'include/linux' subdirectory
