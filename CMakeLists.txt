@@ -25,14 +25,14 @@ macro( add_openeye_library libname fullpath)
   endif()
 endmacro( add_openeye_library )
 
-if (UNIX)
-  set (arch "Linux-x64")
-else()
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
   set (arch "MacOSX-x64")
 
   set (CMAKE_SHARED_LIBRARY_SUFFIX ".jnilib")
   set (CMAKE_CXX_FLAGS "-stdlib=libstdc++")
   set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -unexported_symbols_list ${PROJECT_SOURCE_DIR}/etc/javanew.unexport")
+else()
+  set (arch "Linux-x64")
 endif (UNIX)
 
 set (OE_JAVA_LIB_DIR "${OE_JAVA_DIR}/openeye/native-libs/${arch}")
