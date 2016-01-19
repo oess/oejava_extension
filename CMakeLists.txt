@@ -10,6 +10,11 @@ find_package(JNI REQUIRED)
 find_package(SWIG REQUIRED VERSION 3.0.2 HINT ${HINTPATH})
 include(${SWIG_USE_FILE})
 
+set(limitedstack_h "openeye/toolkits/include/oeplatform/oelimitedstack.h")
+file(READ ${limitedstack_h} contents)
+string(REGEX REPLACE "define OELIMITEDSTACK 0" "define OELIMITEDSTACK 1024" contents "${contents}")
+file(WRITE ${limitedstack_h} "${contents}")
+
 add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG)
 
 include_directories(${JAVA_INCLUDE_PATH})
