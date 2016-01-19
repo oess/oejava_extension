@@ -53,7 +53,7 @@ foreach(fullpathname ${oe_shared_libs})
 
     # strip the version number
     string(REGEX REPLACE "-java-.*" "" libname "${sharedlibname}")
-    message("${libname} = ${fullpathname}")
+    #message("${libname} = ${fullpathname}")
     # register the shared libraries with CMake
     add_openeye_library(${libname} ${fullpathname})
 
@@ -63,7 +63,7 @@ foreach(fullpathname ${oe_shared_libs})
       OUTPUT_VARIABLE dependencies)
 
     set ( ${libname}_AND_SHARED_DEP_LIBS "${libname};${dependencies}")
-    message("${libname}_AND_SHARED_DEP_LIBS = ${${libname}_AND_SHARED_DEP_LIBS}")
+    #message("${libname}_AND_SHARED_DEP_LIBS = ${${libname}_AND_SHARED_DEP_LIBS}")
   endif()
 endforeach(fullpathname)
 
