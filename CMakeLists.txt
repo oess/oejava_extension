@@ -33,7 +33,7 @@ if (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
   set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -unexported_symbols_list ${PROJECT_SOURCE_DIR}/etc/javanew.unexport")
 else()
   set (arch "Linux-x64")
-endif (UNIX)
+endif()
 
 set (OE_JAVA_LIB_DIR "${OE_JAVA_DIR}/openeye/native-libs/${arch}")
 file(GLOB oe_shared_libs "${OE_JAVA_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}*${CMAKE_SHARED_LIBRARY_SUFFIX}")
