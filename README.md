@@ -20,7 +20,6 @@ in molwt.cpp. The function is accessed through the example MolWT.java.
 3. untar OpenEye C++ distribution into source tree
 4. untar OpenEye Java distribution into source tree
 5. unzip OpenEye-Java-xxxx.xxx.x-arch/lib/oejava-xxxx.xxx.x-arch.jar
-6. edit OE_JAVA_LIB_DIR variable in CMakeLists.txt for the desired architecture (currently hardcoded to MacOSX-x64)
 6. ./configure
 7. make
 8. ctest -V
