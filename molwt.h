@@ -7,4 +7,6 @@ Example OEChem extension header
 
 float ExampleCalcMolWt(OEChem::OEMolBase &mol);
 
+void VectorTest(std::vector<OEChem::OEMolBase*>& mols);
+
 void UsingAStream(const char *data);
