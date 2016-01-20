@@ -11,10 +11,11 @@ float ExampleCalcMolWt(OEChem::OEMolBase &mol)
   return mw;
 }
 
-void VectorTest(std::vector<OEChem::OEMolBase*>& mols){
+void VectorTest(std::vector<OEChem::OEGraphMol>& mols){
    for(std::size_t i=0; i<mols.size(); i++){
-      std::cout << i << " " << mols[i]->GetTitle() << std::endl;
+      std::cout << i << " " << mols[i].GetTitle();
    }
+   std::cout << std::endl;
 }
 
 void UsingAStream(const char *data)

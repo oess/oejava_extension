@@ -17,12 +17,14 @@ public class MolWT {
       System.out.println(example.ExampleCalcMolWt(mol));
       example.UsingAStream("fubar?");
 
-       VectorMol mols = new VectorMol();
-       for(int i=0; i<50000; i++){
+      for(int j=0; j<100; j++) {
+        VectorMol mols = new VectorMol();
+        for(int i=0; i<50; i++){
           OEGraphMol gm = new OEGraphMol();
           oechem.OESmilesToMol(gm, "c1ccccc1CCCBr");
           mols.add(gm);
-       }
-       example.VectorTest(mols);
+        }
+        example.VectorTest(mols);
+      }
     }
 }
