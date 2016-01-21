@@ -13,7 +13,8 @@ float ExampleCalcMolWt(OEChem::OEMolBase &mol)
 
 void VectorTest(std::vector<OEChem::OEGraphMol>& mols){
    for(std::size_t i=0; i<mols.size(); i++){
-      std::cout << i << " " << mols[i].GetTitle();
+      std::cout << mols[i].GetTitle() << " ";
+      mols[i].SetStringData("myData","works");
    }
    std::cout << std::endl;
 }

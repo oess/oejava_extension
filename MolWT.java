@@ -22,9 +22,15 @@ public class MolWT {
         for(int i=0; i<50; i++){
           OEGraphMol gm = new OEGraphMol();
           oechem.OESmilesToMol(gm, "c1ccccc1CCCBr");
+          gm.SetTitle("MyTitle"+i);
+          System.out.println("set title "+gm.GetTitle());
           mols.add(gm);
         }
         example.VectorTest(mols);
+        for(int i=0; i<mols.size(); i++){
+           OEGraphMol m = mols.get(i);
+           System.out.println("back in java: "+i+" "+m.GetTitle()+" "+m.GetStringData("myData"));
+        }
       }
     }
 }
