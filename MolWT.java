@@ -25,6 +25,11 @@ public class MolWT {
           mols.add(gm);
         }
         example.VectorTest(mols);
+        for(int i=0; i<50; i++){
+          OEGraphMol gm = mols.get(i);
+          System.out.print(example.ExampleCalcMolWt(gm) + " ");
+        }
+        System.out.println();
       }
     }
 }
