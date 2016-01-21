@@ -28,8 +28,10 @@ public class MolWT {
         }
         example.VectorTest(mols);
         for(int i=0; i<mols.size(); i++){
-           OEGraphMol m = mols.get(i);
-           System.out.println("back in java: "+i+" "+m.GetTitle()+" "+m.GetStringData("myData")+example.ExampleCalcMolWt(gm));
+          OEGraphMol m = mols.get(i);
+          System.out.println("back in java: "+i+" "+m.GetTitle()+" "+
+                             m.GetStringData("myData")+
+                             example.ExampleCalcMolWt(m));
         }
       }
     }
