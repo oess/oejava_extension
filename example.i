@@ -12,7 +12,7 @@ import openeye.oechem.*;
 %typemap(jstype) OEChem::OEGraphMol& "openeye.oechem.OEGraphMol";
 %typemap(javain) OEChem::OEGraphMol& "openeye.oechem.OEGraphMol.getCPtr($javainput)"
 %typemap(javaout) OEChem::OEGraphMol& {
-  openeye.oechem.OEMolBase tmpmol = new openeye.oechem.OEMolBase($jnicall, true);
+  openeye.oechem.OEMolBase tmpmol = new openeye.oechem.OEMolBase($jnicall, false);
   return new openeye.oechem.OEGraphMol(tmpmol);
 }
 
@@ -22,8 +22,7 @@ import openeye.oechem.*;
 %}
 
 %typemap(out) OEChem::OEGraphMol& %{
-  OEMolBase *tmp_mol = OENewMolBase($1->SCMol());
-  *(OEMolBase **)&$result = tmp_mol;
+  *(OEMolBase **)&$result = &($1->SCMol());
 %}
 
 %{
