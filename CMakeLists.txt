@@ -4,13 +4,35 @@ ENABLE_TESTING()
 
 set (OE_JAVA_DIR ${CMAKE_SOURCE_DIR})
 
+if(WIN32)
+   set(CMAKE_GENERATOR "Visual Studio 12 Win64")
+   set(CMAKE_FIND_LIBRARY_PREFIXES "lib" "")
+   set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll.a" ".a" ".lib")
+   set(OE_OS "Windows-x64")
+   set(OE_TOOLKIT "windows/x64")
+   add_definitions(/DOEBUILDJAVAyes /DBUILDJAVA /DOEDEBUG /DOELIMITEDSTACK=1024)
+elseif(APPLE)
+   set(CMAKE_GENERATOR "Unix Makefiles")
+   set(OE_OS "MacOSX-x64")
+   set(OE_TOOLKIT "openeye/toolkits")
+   set(CMAKE_SHARED_LIBRARY_SUFFIX ".jnilib")
+   #set(CMAKE_CXX_FLAGS "-stdlib=libstdc++")
+   set (CMAKE_CXX_FLAGS "-g -fno-omit-frame-pointer -stdlib=libstdc++")
+   set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -unexported_symbols_list ${PROJECT_SOURCE_DIR}/javanew.unexport")
+   #add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG -DOELIMITEDSTACK=1024)
+   add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG -DOE_STREAM_BUFFER_SIZE=32768 -DOE_STATIC_BUFFER_COUNT=32)
+else()
+  set (OE_OS "Linux-x64")
+endif()
+
+set(OE_JAVA_LIB_DIR ${CMAKE_BINARY_DIR}/openeye/native-libs/${OE_OS})
+
+
 # Find needed SWIG and java stuff
 include (FindJava)
 find_package(JNI REQUIRED)
 find_package(SWIG REQUIRED VERSION 3.0.2 HINT ${HINTPATH})
 include(${SWIG_USE_FILE})
-
-add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG -DOE_STREAM_BUFFER_SIZE=32768 -DOE_STATIC_BUFFER_COUNT=32)
 
 include_directories(${JAVA_INCLUDE_PATH})
 include_directories(${JAVA_INCLUDE_PATH2}) # needed for the 'include/linux' subdirectory
@@ -25,17 +47,6 @@ macro( add_openeye_library libname fullpath)
   endif()
 endmacro( add_openeye_library )
 
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
-  set (arch "MacOSX-x64")
-
-  set (CMAKE_SHARED_LIBRARY_SUFFIX ".jnilib")
-  set (CMAKE_CXX_FLAGS "-g -fno-omit-frame-pointer -stdlib=libstdc++")
-  set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -unexported_symbols_list ${PROJECT_SOURCE_DIR}/javanew.unexport")
-else()
-  set (arch "Linux-x64")
-endif()
-
-set (OE_JAVA_LIB_DIR "${OE_JAVA_DIR}/openeye/native-libs/${arch}")
 file(GLOB oe_shared_libs "${OE_JAVA_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}*${CMAKE_SHARED_LIBRARY_SUFFIX}")
 message("${OE_JAVA_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}*${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
