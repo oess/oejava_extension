@@ -55,7 +55,9 @@ foreach(fullpathname ${oe_shared_libs})
     # extract the shared library name including version number
     get_filename_component(sharedlibname "${fullpathname}" NAME)
     string(REGEX REPLACE "${CMAKE_SHARED_LIBRARY_SUFFIX}" "" sharedlibname "${sharedlibname}")
-    string(REGEX REPLACE "${CMAKE_SHARED_LIBRARY_PREFIX}" "" sharedlibname "${sharedlibname}")
+	if(NOT ${CMAKE_SHARED_LIBRARY_PREFIX} STREQUAL "")
+      string(REGEX REPLACE "${CMAKE_SHARED_LIBRARY_PREFIX}" "" sharedlibname "${sharedlibname}")
+	endif()
 
     # strip the version number
     string(REGEX REPLACE "-java-.*" "" libname "${sharedlibname}")
