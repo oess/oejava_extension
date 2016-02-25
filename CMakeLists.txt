@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.9)
 project(OpenEye-java-extension)
 ENABLE_TESTING()
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
 set (OE_JAVA_DIR ${CMAKE_SOURCE_DIR})
 
@@ -10,7 +12,8 @@ if(WIN32)
    set(CMAKE_FIND_LIBRARY_SUFFIXES ".dll.a" ".a" ".lib")
    set(OE_OS "Windows-x64")
    set(OE_TOOLKIT "windows/x64")
-   add_definitions(/DOEBUILDJAVAyes /DBUILDJAVA /DOEDEBUG /DOELIMITEDSTACK=1024)
+   #add_definitions(/DOEBUILDJAVAyes /DBUILDJAVA /DOEDEBUG /DOELIMITEDSTACK=1024)
+   add_definitions(/DOEBUILDJAVAyes /DBUILDJAVA /DOEDEBUG /DOE_STREAM_BUFFER_SIZE=32768 /DOE_STATIC_BUFFER_COUNT=32)
 elseif(APPLE)
    set(CMAKE_GENERATOR "Unix Makefiles")
    set(OE_OS "MacOSX-x64")
@@ -44,6 +47,8 @@ macro( add_openeye_library libname fullpath)
   if ( NOT TARGET ${libname} )
     add_library ( ${libname} SHARED IMPORTED )
     set_target_properties ( ${libname} PROPERTIES IMPORTED_LOCATION ${fullpath})
+	string(REGEX REPLACE ".dll" ".lib" fullpathlib ${fullpath})
+	set_target_properties ( ${libname} PROPERTIES IMPORTED_IMPLIB ${fullpathlib})
   endif()
 endmacro( add_openeye_library )
 
@@ -86,6 +91,8 @@ set_source_files_properties(example.i PROPERTIES CPLUSPLUS ON)
 swig_add_module(example java example.i ${EXAMPLE_SRC})
 swig_link_libraries(example 
                     ${JAVA_LIBRARIES} 
+					${oesystem_AND_SHARED_DEP_LIBS}
+					${oeplatform_AND_SHARED_DEP_LIBS}
                     ${oechem_AND_SHARED_DEP_LIBS})
 
 add_custom_command(OUTPUT example.class
