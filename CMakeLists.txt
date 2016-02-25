@@ -22,7 +22,12 @@ elseif(APPLE)
    #add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG -DOELIMITEDSTACK=1024)
    add_definitions(-DOEBUILDJAVAyes -DBUILDJAVA -DOEDEBUG -DOE_STREAM_BUFFER_SIZE=32768 -DOE_STATIC_BUFFER_COUNT=32)
 else()
-  set (OE_OS "Linux-x64")
+   set (OE_OS "Linux-x64")
+endif()
+
+if(NOT WIN32)
+   SET(CMAKE_INSTALL_RPATH "@loader_path/.")
+   SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 endif()
 
 set(OE_JAVA_LIB_DIR ${CMAKE_BINARY_DIR}/openeye/native-libs/${OE_OS})

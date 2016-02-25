@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 
 public class MolWT {
     static {
+        // Trigger OE's facilities to load the oechem jnilib
+        oechem.OEIsJavaHeap();
         System.loadLibrary("example");
     }
 
